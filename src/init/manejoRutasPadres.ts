@@ -6,7 +6,7 @@ import subRutasCentralBloqueadores from "../uris/centralBQ/centralBloqueadores"
 import subRutasDynamo from '../uris/dynamo/rutasDynamo';
 import errorHTTP from "../uris/manejadorErroresHTTP";
 import healthPage from "../uris/healthPage";
-
+import  conexionChorrilloback from "../uris/chorrilloBack/conexionChorrilloback";
 export default class manejadorRutas {
   readonly paths: Router;
 
@@ -22,7 +22,7 @@ export default class manejadorRutas {
     this.paths.use("/conexion", subRutasConexion);
     this.paths.use("/centralBloqueadores", subRutasCentralBloqueadores);
     this.paths.use("/dynamo", subRutasDynamo);
-    
+    this.paths.use("/penal", conexionChorrilloback);
     this.paths.use(errorHTTP.notFound);
   }
 }

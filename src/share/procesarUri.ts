@@ -244,6 +244,29 @@ export default class processUri {
             }
         })
     }
+
+    static inventario(req: Request, res: Response) {
+        const sql = "SELECT JSON_ARRAYAGG(JSON_OBJECT('idInventario', id,'prefijoPenal', prefijoPenal,'mid', mid,'banda', banda,'tramaInt',tramaInt,'fhUltimoReporte',fhUltimoReporte)) AS resultado FROM centralBloqueadores.inventarioBQs where prefijoPenal=" + req.query.prefijo + ";";
+        gettingResponses.getResponseChorrillosBK(sql, (result: any) => {
+            try {
+                res.send(result);
+            }
+            catch (error) {
+                res.status(200).json({ 'respuesta': 'KO', error: error });
+            }
+        });
+    }
+    static obtenerDatosPorBloqueador(req: Request, res: Response) {
+        const sql = "SELECT json_arrayagg(JSON_OBJECT('prefijoPenal',prefijoPenal,'mid',mid,'nombre',nombre))AS resultado from centralBloqueadores.bloqueadores where prefijoPenal=" + req.query.prefijo + ";";
+        gettingResponses.getResponseChorrillosBK(sql, (result: any) => {
+            try {
+                res.send(result);
+            }
+            catch (error) {
+                res.status(200).json({ 'respuesta': 'KO', error: error });
+            }
+        });
+    }
 }
 
 
